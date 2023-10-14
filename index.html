@@ -56,11 +56,11 @@
       }
 
       var buildUrl = "Build";
-      var loaderUrl = buildUrl + "/Download-Ram-Idle.loader.js";
+      var loaderUrl = buildUrl + "/Squirrel404.github.io.loader.js";
       var config = {
-        dataUrl: buildUrl + "/Download-Ram-Idle.data",
-        frameworkUrl: buildUrl + "/Download-Ram-Idle.framework.js",
-        codeUrl: buildUrl + "/Download-Ram-Idle.wasm",
+        dataUrl: buildUrl + "/Squirrel404.github.io.data",
+        frameworkUrl: buildUrl + "/Squirrel404.github.io.framework.js",
+        codeUrl: buildUrl + "/Squirrel404.github.io.wasm",
         streamingAssetsUrl: "StreamingAssets",
         companyName: "Luis0413",
         productName: "Download RAM",
@@ -100,11 +100,13 @@
       loadingBar.style.display = "block";
 
       var script = document.createElement("script");
+      var myGameInstance = null;
       script.src = loaderUrl;
       script.onload = () => {
         createUnityInstance(canvas, config, (progress) => {
           progressBarFull.style.width = 100 * progress + "%";
         }).then((unityInstance) => {
+          myGameInstance = unityInstance;
           loadingBar.style.display = "none";
           fullscreenButton.onclick = () => {
             unityInstance.SetFullscreen(1);
@@ -114,6 +116,18 @@
         });
       };
       document.body.appendChild(script);
+
+      var saveData = "none";
+
+      function CallUnityMethod(gameObject, script, parameter)
+      {
+        myGameInstance.SendMessage(gameObject, script, parameter);
+      }
+
+      // function SendMessage(gameObject, script)
+      // {
+        // myGameInstance.SendMessage(gameObject, script);
+      // }
     </script>
   </body>
 </html>
